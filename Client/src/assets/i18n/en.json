@@ -1,0 +1,87 @@
+{
+  "login": {
+    "title": "Login",
+    "username": "Username",
+    "password": "Password",
+    "button": "Login"
+  },
+  "users": {
+    "profile": "Profile",
+    "general": "General",
+    "name": "Name",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "username": "Username",
+    "email": "E-Mail Address",
+    "password": "Password",
+    "repeatPassword": "Repeat password",
+    "newPassword": "New password",
+    "userManagement": "User Management",
+    "newUser": "New user",
+    "createUser": "Create user",
+    "editUser": "Edit user"
+  },
+  "dashboard": {
+    "title": "Dashboard"
+  },
+  "example": {
+    "title": "Example",
+    "newExample": "New example",
+    "column1": "Column 1",
+    "column2": "Column 2",
+    "column3": "Column 3",
+    "select": "Select Example",
+    "addExample": "Add example",
+    "editExample": "Edit example"
+  },
+  "404": {
+    "title": "404.",
+    "text": "The page you are looking for does not exist. How you got here is a mystery. But you can click the button below to go back to the homepage.",
+    "button": "Home"
+  },
+  "delete": {
+    "title": "Are you sure deleting this entry?",
+    "button": "Delete"
+  },
+  "forms": {
+    "search": "Search",
+    "errors": {
+      "required": "Required",
+      "invalidMail": "Invalid mail"
+    }
+  },
+  "tables": {
+    "created": "Created",
+    "updated": "Updated",
+    "action": "Action",
+    "noEntries": "No entries"
+  },
+  "buttons": {
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "snackBars": {
+    "success": {
+      "login": "Login successfully",
+      "save": "Saved successfully",
+      "delete": "Successfully deleted"
+    },
+    "errors": {
+      "login": "Error logging in",
+      "save": "Error saving entry",
+      "delete": "Error deleting entry",
+      "differentPassword": "Passwords are different"
+    }
+  },
+  "menu": {
+    "componentHeader": "Components",
+    "mainMenu": {},
+    "componentMenu": {
+      "dashboard": "Dashboard",
+      "example": "Example"
+    },
+    "settingsMenu": {
+      "user": "User Management"
+    }
+  }
+}

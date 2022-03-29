@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col">
+    <mat-card class="shadow-lg">
+      <div class="row">
+        <div class="col">
+          <!-- TODO: Change headline-->
+          <h2 *ngIf="!isEdit">{{'example.addExample' | translate}}</h2>
+          <h2 *ngIf="isEdit">{{'example.editExample' | translate}}</h2>
+        </div>
+        <div class="col text-right btnGroup">
+          <!-- TODO: Change routerLink -->
+          <button mat-raised-button routerLink="/example">
+            {{'buttons.cancel' | translate}}
+          </button>
+          <!-- TODO: Change formName -->
+          <button mat-raised-button color="primary" type="submit" form="exampleForm" [disabled]="!exampleForm.valid"
+            (click)="submit()">{{'buttons.save' | translate}}
+          </button>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <br>
+      <mat-card-content>
+        <!-- TODO: Change formName -->
+        <form id="exampleForm" #exampleForm="ngForm">
+          <!-- TODO: Change ngModel and mat-label and errors -->
+          <mat-form-field appearance="outline">
+            <mat-label>{{'example.column1' | translate}}</mat-label>
+            <input matInput type="text" name="column1" [(ngModel)]="example.column1" required #column1="ngModel" />
+            <mat-error *ngIf="(column1.dirty || column1.touched) && column1.errors && column1.errors.required">
+              {{'forms.errors.required' | translate}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{'example.column2' | translate}}</mat-label>
+            <input matInput type="text" name="column2" [(ngModel)]="example.column2" required #column2="ngModel" />
+            <mat-error *ngIf="(column2.dirty || column2.touched) && column2.errors && column2.errors.required">
+              {{'forms.errors.required' | translate}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{'example.column3' | translate}}</mat-label>
+            <input matInput type="email" name="column3" [(ngModel)]="example.column3" required #column3="ngModel" />
+            <mat-error *ngIf="(column3.dirty || column3.touched) && column3.errors && column3.errors.required">
+              {{'forms.errors.required' | translate}}
+            </mat-error>
+            <mat-error
+              *ngIf="(column3.dirty || column3.touched) && column3.errors && column3.errors.invalid && column3.errors.required">
+              {{'forms.errors.invalidMail' | translate}}
+            </mat-error>
+          </mat-form-field>
+
+          <!-- EXAMPLE FOR SELECT (JUST IF YOU NEED IT) -->
+          <!-- TODO: Delete if not needed  -->
+          <mat-form-field appearance="outline">
+            <mat-label>{{'example.select' | translate}}</mat-label>
+            <mat-select matInput type="text" name="column2" [(ngModel)]="example.column2" required #column2="ngModel">
+              <mat-option *ngFor="let select of selectExample" [value]="select.value">{{select.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="(column2.dirty || column2.touched) && column2.errors && column2.errors.required">
+              {{'forms.errors.required' | translate}}
+            </mat-error>
+          </mat-form-field>
+
+          <!-- EXAMPLE FOR EDITOR (JUST IF YOU NEED IT) -->
+          <!-- TODO: Delete if not needed  -->
+          <quill-editor [placeholder]='' [styles]="{height: '200px'}" [(ngModel)]="example.column1" format="html">
+          </quill-editor>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

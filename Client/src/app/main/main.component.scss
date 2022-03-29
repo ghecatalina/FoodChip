@@ -1,0 +1,64 @@
+@import './../../styles.scss';
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  max-width: 300px;
+  width: 80vw;
+}
+
+.mat-toolbar {
+  background-color: #fff;
+}
+
+.mat-toolbar.mat-primary {
+  position: relative;
+  top: 0;
+  z-index: 99;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.subnav {
+  font-size: 1em;
+}
+
+.toolbar-header {
+  font-weight: 300;
+  color: mat-color($Custom-primary) !important;
+}
+
+.toolbar-header b {
+  font-weight: 500;
+}
+
+.mat-list-item {
+  text-decoration: none !important;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.mat-list-item.active {
+  color: mat-color($Custom-primary) !important;
+}
+
+.sidenav-container {
+  position: relative;
+
+  .bottomMenu {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+}
+
+.container-fluid {
+  padding: 20px;
+}

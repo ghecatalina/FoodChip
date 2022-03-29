@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col">
+    <mat-card class="shadow-lg">
+      <div class="row">
+        <div class="col">
+          <!-- TODO: Change headline -->
+          <h2>{{'example.title' | translate}}</h2>
+        </div>
+        <div class="col text-right">
+          <!-- TODO: Change button text -->
+          <button mat-raised-button color="primary" routerLink="add">{{'example.newExample' | translate}}</button>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <br>
+      <mat-card-content>
+        <div class="row  align-items-center">
+          <div class="col text-right">
+            <mat-form-field>
+              <mat-label>{{'forms.search' | translate}}</mat-label>
+              <input matInput (keyup)="applyFilter($event)" #input>
+            </mat-form-field>
+          </div>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort>
+
+          <!-- TODO: Change matColumnDef and element.X -->
+          <ng-container matColumnDef="column1" sticky>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'example.column1' | translate}}</th>
+            <td mat-cell *matCellDef="let element">{{ element.column1 }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="column2">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'example.column2' | translate}}</th>
+            <td mat-cell *matCellDef="let element">{{ element.column2 }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="column3">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'example.column3' | translate}}</th>
+            <td mat-cell *matCellDef="let element">{{ element.column3 }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="column4">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'tables.created' | translate}}</th>
+            <td mat-cell *matCellDef="let element">{{ element.column4 | date:'dd.MM.yyyy HH:mm:ss' }}</td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="column5">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'tables.updated' | translate}}</th>
+            <td mat-cell *matCellDef="let element">{{ element.column5 | date:'dd.MM.yyyy HH:mm:ss' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="action" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'tables.action' | translate}}</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button [routerLink]="['edit', element.id]">
+                <mat-icon>mode_edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="delete(element)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="6">{{'tables.noEntries' | translate}}</td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
