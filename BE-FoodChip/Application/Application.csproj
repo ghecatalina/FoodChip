@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <Folder Include="IngredientQuantities\" />
-    <Folder Include="Recipes\Queries\" />
   </ItemGroup>
 
 </Project>

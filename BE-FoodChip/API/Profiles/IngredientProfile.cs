@@ -16,6 +16,10 @@ namespace API.Profiles
                 .ForMember(p => p.Id, opt => opt.MapFrom(s => s.Id))
                 .ForMember(p => p.IngredientName, opt => opt.MapFrom(s => s.IngredientName))
                 .ReverseMap();
+            CreateMap<IngredientQuantityDto, IngredientQuantity>()
+                .ForPath(p => p.Ingredient.IngredientName, opt => opt.MapFrom(s => s.IngredientName))
+                .ForMember(p => p.Quantity, opt => opt.MapFrom(s => s.Quantity))
+                .ReverseMap();
         }
     }
 }
