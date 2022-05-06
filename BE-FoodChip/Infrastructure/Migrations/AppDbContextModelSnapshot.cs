@@ -318,7 +318,7 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Recipe", null)
-                        .WithMany("MyProperty")
+                        .WithMany("Ingredients")
                         .HasForeignKey("RecipeId");
 
                     b.Navigation("Ingredient");
@@ -327,7 +327,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Recipe", b =>
                 {
                     b.HasOne("Domain.Category", "RecipeCategory")
-                        .WithMany()
+                        .WithMany("Recipes")
                         .HasForeignKey("RecipeCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -386,9 +386,14 @@ namespace Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Domain.Category", b =>
+                {
+                    b.Navigation("Recipes");
+                });
+
             modelBuilder.Entity("Domain.Recipe", b =>
                 {
-                    b.Navigation("MyProperty");
+                    b.Navigation("Ingredients");
                 });
 #pragma warning restore 612, 618
         }

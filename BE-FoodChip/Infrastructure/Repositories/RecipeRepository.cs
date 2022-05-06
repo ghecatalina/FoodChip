@@ -32,6 +32,7 @@ namespace Infrastructure.Repositories
         {
             return await _context.Recipes
                 .Include(r => r.Ingredients)
+                .ThenInclude(r => r.Ingredient)
                 .Include(r => r.RecipeCategory)
                 .ToListAsync();
         }
@@ -40,6 +41,7 @@ namespace Infrastructure.Repositories
         {
             return await _context.Recipes
                 .Include(r => r.Ingredients)
+                .ThenInclude(r => r.Ingredient)
                 .Include(r => r.RecipeCategory)
                 .FirstOrDefaultAsync(r => r.Id == id);
         }

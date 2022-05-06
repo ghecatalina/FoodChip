@@ -1,6 +1,7 @@
 ﻿using API.DTOs;
 using Application.Recipes.Commands.CreateRecipe;
 using Application.Recipes.Queries.GetRecipeById;
+using Application.Recipes.Queries.SearchByIngredients;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -50,6 +51,16 @@ namespace API.Controllers
                 return NotFound();
 
             var mappedResult = _mapper.Map<RecipeGetDto>(result);
+            return Ok(mappedResult);
+        }
+
+        [HttpPost]
+        [Route("/search")]
+        public async Task<IActionResult> SearchByIngredients([FromBody] SearchDto search)
+        {
+            var query = new SearchByIngredientsQuery() { Category = search.Category, Ingredients = search.Ingredients };
+            var result = await _mediator.Send(query);
+            var mappedResult = _mapper.Map<List<RecipeGetDto>>(result);
             return Ok(mappedResult);
         }
 

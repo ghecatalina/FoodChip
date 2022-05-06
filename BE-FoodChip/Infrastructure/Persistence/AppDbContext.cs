@@ -8,7 +8,6 @@ namespace Infrastructure.Persistence
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {
-
         }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<IngredientQuantity> IngredientQuantities { get; set; }

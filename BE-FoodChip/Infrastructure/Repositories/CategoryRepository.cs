@@ -25,13 +25,19 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Category>> GetAll()
         {
-            return await _context.Categories.ToListAsync();
+            return await _context.Categories
+                .Include(c => c.Recipes)
+                .ThenInclude(c => c.Ingredients)
+                .ThenInclude(c => c.Ingredient)
+                .ToListAsync();
         }
 
         public async Task<Category> GetById(int id)
         {
             var category = await _context.Categories
                 .Include(c => c.Recipes)
+                .ThenInclude(c => c.Ingredients)
+                .ThenInclude(c => c.Ingredient)
                 .FirstOrDefaultAsync(c => c.Id == id);
             return category;
         }

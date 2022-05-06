@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220417161958_initial_migration")]
-    partial class initial_migration
+    [Migration("20220506215452_new-mig")]
+    partial class newmig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -320,7 +320,7 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Recipe", null)
-                        .WithMany("MyProperty")
+                        .WithMany("Ingredients")
                         .HasForeignKey("RecipeId");
 
                     b.Navigation("Ingredient");
@@ -329,7 +329,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Recipe", b =>
                 {
                     b.HasOne("Domain.Category", "RecipeCategory")
-                        .WithMany()
+                        .WithMany("Recipes")
                         .HasForeignKey("RecipeCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -388,9 +388,14 @@ namespace Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Domain.Category", b =>
+                {
+                    b.Navigation("Recipes");
+                });
+
             modelBuilder.Entity("Domain.Recipe", b =>
                 {
-                    b.Navigation("MyProperty");
+                    b.Navigation("Ingredients");
                 });
 #pragma warning restore 612, 618
         }

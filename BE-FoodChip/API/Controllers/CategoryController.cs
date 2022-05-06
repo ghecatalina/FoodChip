@@ -1,5 +1,6 @@
 ﻿using API.DTOs;
 using Application.Categories.Commands.CreateCategory;
+using Application.Categories.Queries.GetAllCategories;
 using Application.Categories.Queries.GetCategory;
 using AutoMapper;
 using MediatR;
@@ -41,6 +42,15 @@ namespace API.Controllers
                 return NotFound();
 
             var mappedResult = _mapper.Map<CategoryGetDto>(result);
+            return Ok(mappedResult);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllCategories()
+        {
+            var query = new GetAllCategoriesQuery();
+            var result = await _mediator.Send(query);
+            var mappedResult = _mapper.Map<IEnumerable<CategoryGetDto>>(result);
             return Ok(mappedResult);
         }
 
