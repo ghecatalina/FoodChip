@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220506215452_new-mig")]
+    [Migration("20220507102348_new-mig")]
     partial class newmig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
