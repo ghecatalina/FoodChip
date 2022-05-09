@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Roboto:wght@700&display=swap');
+.grid{
+    display: flex;
+    display: flex; 
+    grid: auto auto / auto auto auto auto; 
+    grid-gap: 10px; 
+    margin-bottom: 0px;
+    margin-left: 0;
+    bottom: 0;
+}
+
+.login{
+    position: absolute;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 35px;
+
+    color: #1A202C;
+}
+
+.loginButton {
+
+    position: absolute;
+    width: 23.5%;
+    height: 50px;
+    margin-left: 0.7%;
+    
+    border: none;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    color: #FFFFFF;
+
+    background: #FEA150;
+}
+
+.forgot{
+    background-color: transparent;
+    border: none;
+    font-family: 'Poppins';
+    font-style: normal;
+
+}
