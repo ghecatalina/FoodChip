@@ -2,7 +2,7 @@ import { AppBar, Button, Container, Grid, IconButton, Toolbar } from "@mui/mater
 import { Box } from "@mui/system";
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import logo from '../../Images/logo.png';
+import logo from '../../Images/logo2.png';
 import '@fontsource/roboto/400.css';
 
 const NavBar = () => {
@@ -12,8 +12,8 @@ const NavBar = () => {
 
     return(
     <>
-        <AppBar position="static" style={{background: 'none'}}>
-            <Container maxWidth="xl" >
+        <AppBar position="static" style={{background: 'none', boxShadow: "none"}}>
+            <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Grid container>
                         <Grid item xs={6}>
@@ -37,7 +37,7 @@ const NavBar = () => {
                 </Toolbar>
             </Container>
         </AppBar>
-            </>
+    </>
     );
 }
 
