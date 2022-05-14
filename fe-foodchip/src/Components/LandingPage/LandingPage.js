@@ -1,8 +1,8 @@
 import { Button } from "@mui/material";
 import React from "react";
 import './LandingPage.css';
-import logo from '../../Images/logo.png';
 import { useNavigate } from "react-router-dom";
+import NavBar from "../NavBar/NavBar";
 
 export default function LandingPage() {
     const navigate = useNavigate();
@@ -16,10 +16,10 @@ export default function LandingPage() {
     }
 
     return (
-        <div class="eclipseBack">
-            <div class="logo_container">
-                <img class="logo" src={logo} alt=""/>
-            </div>
+        <>
+        <div id="wrapper">
+            <div class="eclipse"></div>
+            <NavBar/>
             <div class="grid">
                 <div>
                     <div class="par">
@@ -35,5 +35,6 @@ export default function LandingPage() {
                 </div>
             </div>
         </div>
+        </>
     );
 }
