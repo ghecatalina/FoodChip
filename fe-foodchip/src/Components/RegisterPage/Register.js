@@ -2,9 +2,36 @@ import { Grid, TextField, Button, Paper, Typography } from "@mui/material";
 import library from '../../Images/logIn.jpg';
 import './Register.css';
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { register } from "../../Actions/auth";
+import {useState} from "react";
 
-export default function SignUp() {
+const initialState = {email: '', password: '', confirmPassword: ''};
+
+export default function Register() {
     const navigate = useNavigate();
+    const [formData, setFormData] = useState(initialState);
+    const dispatch = useDispatch();
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+        console.log(e.target.value);
+        console.log(formData);
+    }
+
+    const sendRegisterData = (e) => {
+        if (formData.password !== formData.confirmPassword){
+            console.log("Password don't match.");
+            return;
+        }
+        const userInfo = {
+            regularUserEmail: formData.email,
+            regularUserPassword: formData.password
+        }
+        
+        e.preventDefault();
+        dispatch(register(userInfo));
+    }
 
     const goToSignIn = () => {
         navigate('/signin');
@@ -29,22 +56,19 @@ export default function SignUp() {
                                 <Typography variant="h5">Create your account</Typography>
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField name="email" type="text" label="Email" fullWidth/>
+                                <TextField name="email" type="text" label="Email" fullWidth onChange={handleChange}/>
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField name="name" type="text" label="Name" fullWidth/>
+                                <TextField name="password" type="password" label="Password" fullWidth onChange={handleChange}/>
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField name="password" type="password" label="Password" fullWidth/>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField name="confirmPassword" type="password" label="Confirm Password" fullWidth/>
+                                <TextField name="confirmPassword" type="password" label="Confirm Password" fullWidth onChange={handleChange}/>
                             </Grid>
                             <Grid item xs={12} display="flex" justifyContent="flex-end">
                                 <Button variant="text" size="small" onClick={goToSignIn}>Already have an account? Sign In</Button>
                             </Grid>
                             <Grid item xs={12}>
-                                <Button variant="contained" class="registerButton">Register</Button>
+                                <Button variant="contained" class="registerButton" onClick={sendRegisterData}>Register</Button>
                             </Grid>
                         </Grid>
                     </Paper>

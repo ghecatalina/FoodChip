@@ -18,17 +18,17 @@ export default function LandingPage() {
     return (
         <>
         <div id="wrapper">
-            <div class="eclipse"></div>
+            <div className="eclipse"></div>
             <NavBar/>
-            <div class="grid">
+            <div className="grid">
                 <div>
-                    <div class="par">
+                    <div className="par">
                     What's your eating mood today?
                     </div>
-                    <div class="subpar">
+                    <div className="subpar">
                     Have you ever wonder what to cook next? FoodChip is the web application for you. All you have to do is to choose the ingredients from your fridge and be amazed to see the multitude of recipes you can try.
                     </div>
-                    <div class="grid">
+                    <div className="grid">
                         <Button variant="contained" class="register" onClick={goToRegister}>Register</Button>
                         <Button variant="contained" class="signIn" onClick={goToSingIn}>Sign In</Button>
                     </div>
