@@ -8,5 +8,6 @@
         public string Status { get; set; }
         public string Category { get; set; }
         public ICollection<IngredientQuantityDto> Ingredients { get; set; }
+        public object CoverImage { get; internal set; }
     }
 }

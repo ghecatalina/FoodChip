@@ -14,5 +14,6 @@ namespace Domain
         public Category RecipeCategory { get; set; }
         public ICollection<IngredientQuantity> Ingredients { get; set; }
         public string Status { get; set; }
+        public string RecipeCoverImage { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace Application.Recipes.Commands.CreateRecipe
         public async Task<Recipe> Handle(CreateRecipeCommand request, CancellationToken cancellationToken)
         {
             var category = await _categoryRepository.GetById(request.CategoryId);
-            var recipe = new Recipe() { RecipeName = request.Name, RecipeDescription = request.Description, RecipeCategory = category, Status = request.Status, Ingredients = new List<IngredientQuantity>() };
+            var recipe = new Recipe() { RecipeName = request.Name, RecipeDescription = request.Description, RecipeCategory = category, Status = request.Status, Ingredients = new List<IngredientQuantity>(), RecipeCoverImage = request.RecipeCoverImage };
             foreach (var ingredient in request.Ingredients)
             {
                 var ingr = await _ingredientRepository.GetByName(ingredient.Key);

@@ -7,5 +7,6 @@
         public string Status { get; set; }
         public int CategoryId { get; set; }
         public Dictionary<string, double> Ingredients { get; set; }
+        public string CoverImage { get; set; }
     }
 }
