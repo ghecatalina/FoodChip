@@ -2,6 +2,7 @@
 using Application.Recipes.Commands.CreateRecipe;
 using Application.Recipes.Queries.GetRecipeById;
 using Application.Recipes.Queries.SearchByIngredients;
+using Application.Recipes.Queries.GetAllRecipes;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +35,7 @@ namespace API.Controllers
                 CategoryId = recipe.CategoryId,
                 Status = recipe.Status,
                 Ingredients = recipe.Ingredients,
+                RecipeCoverImage = recipe.CoverImage,
             });
             var dto = _mapper.Map<RecipeGetDto>(created);
 
@@ -64,5 +66,13 @@ namespace API.Controllers
             return Ok(mappedResult);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllRecipes()
+        {
+            var query = new GetAllRecipesQuery();
+            var result = await _mediator.Send(query);
+            var mappedResult = _mapper.Map<IEnumerable<RecipeGetDto>>(result);
+            return Ok(mappedResult);
+        }
     }
 }

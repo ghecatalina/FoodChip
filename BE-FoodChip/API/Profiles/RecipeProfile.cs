@@ -13,6 +13,7 @@ namespace API.Profiles
                 .ForMember(p => p.Status, opt => opt.MapFrom(s => s.Status))
                 .ForMember(p => p.RecipeName, opt => opt.MapFrom(s => s.Name))
                 .ForMember(p => p.RecipeDescription, opt => opt.MapFrom(s => s.Description))
+                .ForMember(p => p.RecipeCoverImage, opt => opt.MapFrom(s => s.CoverImage))
                 //.ForMember(p => p.Ingredients, opt => opt.MapFrom(s => s.Ingredients))
                 .ForPath(p => p.RecipeCategory.CategoryName, opt => opt.MapFrom(s => s.Category))
                 .ReverseMap();

@@ -1,10 +1,33 @@
 import { Grid, TextField, Button, Paper, Typography } from "@mui/material";
 import library from '../../Images/logIn.jpg';
 import './SignIn.css';
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signin } from "../../Actions/auth";
+
+const initialState = {email: '', password: ''};
 
 const SignIn = () => {
     const navigate = useNavigate();
+
+    const [formData, setFormData] = useState(initialState);
+    const dispatch = useDispatch();
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+        console.log(e.target.value);
+        console.log(formData);
+    }
+
+    const sendSignInData = (e) => {
+        const userInfo = {
+            regularUserEmail: formData.email,
+            regularUserPassword: formData.password,
+        }
+        e.preventDefault();
+        dispatch(signin(userInfo, navigate));
+    }
 
     const goToSignUp = () => {
         navigate('/register');
@@ -31,10 +54,10 @@ const SignIn = () => {
                             <Grid item xs={12}></Grid>
                             <Grid item xs={12}></Grid>
                             <Grid item xs={12}>
-                                <TextField name="email" type="text" label="Email" fullWidth/>
+                                <TextField name="email" type="text" label="Email" fullWidth onChange={handleChange}/>
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField name="password" type="password" label="Password" fullWidth/>
+                                <TextField name="password" type="password" label="Password" fullWidth onChange={handleChange}/>
                             </Grid>
                             <Grid item xs={12} display="flex" justifyContent="flex-end">
                                 <Button variant="text" size="small">Forgot password?</Button>
@@ -43,7 +66,7 @@ const SignIn = () => {
                                 <Button variant="text" size="small" onClick={goToSignUp}>Don't have an account? Register</Button>
                             </Grid>
                             <Grid item>
-                                <Button variant="contained" class="loginButton">Log in now</Button>
+                                <Button variant="contained" class="loginButton" onClick={sendSignInData}>Log in now</Button>
                             </Grid>
                         </Grid>
                     </Paper>
