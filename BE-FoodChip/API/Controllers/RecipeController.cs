@@ -57,7 +57,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Route("/search")]
+        [Route("search")]
         public async Task<IActionResult> SearchByIngredients([FromBody] SearchDto search)
         {
             var query = new SearchByIngredientsQuery() { Category = search.Category, Ingredients = search.Ingredients };

@@ -6,7 +6,8 @@ import api from "../../Services/api";
 import { Box } from "@mui/system";
 
 const AddRecipe = () => {
-    const [formData, setFormData] = useState({name: '', description: '', status: 'accepted', categoryId: 0, ingredients: {}, coverImage: ''});
+    const userRole = localStorage.getItem('role');
+    const [formData, setFormData] = useState({name: '', description: '', status: userRole === 'regular' ? 'pending' : 'accepted', categoryId: 0, ingredients: {}, coverImage: ''});
     const [categories, setCategories] = useState(null);
     const [ingredients, setIngredients] = useState(null);
     const [ingredientsQuantity, setIngredientsQuantity] = useState({name: '', quantity: 0});
@@ -41,15 +42,14 @@ const AddRecipe = () => {
     }
 
     const handleSubmit = () => {
-        console.log(formData);
-
-        api.post('Recipe', formData)
+        /*api.post('Recipe', formData)
         .then(response => {
             console.log(response.data)
         })
         .catch(error => {
             console.log(error);
-        })
+        })*/
+        console.log(formData);
     }
 
     return (
@@ -67,7 +67,7 @@ const AddRecipe = () => {
                 <Paper style={{maxWidth: 500, padding: '20px'}} elevation={5}>
                     <Grid container rowSpacing={3} alignItems="center">
                         <Grid item xs={12} align="center">
-                            <Typography variant="h5">Add a recipe</Typography>
+                            <Typography variant="h5">{userRole === 'admin' ? 'Add a recipe' : 'Request a recipe'}</Typography>
                         </Grid>
                         <Grid item xs={12}>
                             <div>

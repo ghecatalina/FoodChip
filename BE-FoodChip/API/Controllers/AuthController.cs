@@ -40,7 +40,7 @@ namespace API.Controllers
             if (loginResult)
             {
                 var roles = await _userManager.GetRolesAsync(user);
-                return Ok(GenerateJwt(user, roles));
+                return Ok(new { tk = GenerateJwt(user, roles), Id = user.Id, role = roles });
             }
             return BadRequest("Invalid credentials.");
         }
@@ -51,7 +51,11 @@ namespace API.Controllers
             var user = _mapper.Map<UserAuthDto, User>(userRegister);
             var userCreateResult = await _userManager.CreateAsync(user, userRegister.RegularUserPassword);
             if (userCreateResult.Succeeded)
-                return Created(string.Empty, string.Empty);
+            {
+                var role = await _userManager.AddToRoleAsync(user, "regular");
+                if (role.Succeeded)
+                    return Created(string.Empty, string.Empty);
+            }
             return Problem(userCreateResult.Errors.First().Description, null, 500);
         }
 

@@ -5,6 +5,7 @@ const authReducer = (state = {authData: null}, action) => {
         case actionType.AUTH:
             localStorage.setItem('tk', action?.data.tk);
             localStorage.setItem('id', action?.data.id);
+            localStorage.setItem('role', action?.data.role)
             return {...state, authData: action.data, errors: null};
 
         default:
