@@ -6,6 +6,7 @@ import Register from "./Components/RegisterPage/Register"
 import BrowsePage from "./Components/BrowsePage/BrowsePage"
 import AddRecipe from "./Components/AddRecipePage/AddRecipe"
 import RecipePage from "./Components/RecipePage/RecipePage"
+import SearchIngredientsPage from "./Components/SearchIngredientsPage/SearchIngredientsPage"
 
 const App = () => {
     return (
@@ -17,6 +18,7 @@ const App = () => {
                         <Route exact path="/browse" element={<BrowsePage />} />
                         <Route exact path="/addrecipe" element={<AddRecipe />} />
                         <Route exact path="/recipe/:id" element={<RecipePage />} />
+                        <Route exact path="/search" element={<SearchIngredientsPage />} />
                     </Routes>
                 </BrowserRouter>
 

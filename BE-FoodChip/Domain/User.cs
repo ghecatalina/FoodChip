@@ -9,5 +9,6 @@ namespace Domain
 {
     public class User : IdentityUser<Guid>
     {
+        public List<Recipe> Favourites { get; set; }
     }
 }
