@@ -42,14 +42,14 @@ const AddRecipe = () => {
     }
 
     const handleSubmit = () => {
-        /*api.post('Recipe', formData)
+        api.post('Recipe', formData)
         .then(response => {
             console.log(response.data)
         })
         .catch(error => {
             console.log(error);
-        })*/
-        console.log(formData);
+        })
+        //console.log(formData);
     }
 
     return (

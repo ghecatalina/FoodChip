@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class newmig : Migration
+    public partial class new_mig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -189,11 +189,18 @@ namespace Infrastructure.Migrations
                     RecipeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RecipeDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RecipeCategoryId = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RecipeCoverImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Recipes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Recipes_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Recipes_Categories_RecipeCategoryId",
                         column: x => x.RecipeCategoryId,
@@ -281,6 +288,11 @@ namespace Infrastructure.Migrations
                 name: "IX_Recipes_RecipeCategoryId",
                 table: "Recipes",
                 column: "RecipeCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Recipes_UserId",
+                table: "Recipes",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -307,13 +319,13 @@ namespace Infrastructure.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Ingredients");
 
             migrationBuilder.DropTable(
                 name: "Recipes");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Categories");
