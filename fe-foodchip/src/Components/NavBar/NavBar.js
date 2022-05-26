@@ -37,7 +37,7 @@ const NavBar = () => {
                             </NavLink>
                         </Grid>
                     </Grid>
-                    {userRole==='regular' && <Button variant="text" style={pathname === '/favourites' ? {fontWeight: 700, color: 'black' , width: 200, textDecoration: 'none'} : { color: 'black', width: 200, textDecoration: 'none'}}>Favourites</Button>}
+                    {userRole==='regular' && <Button variant="text" onClick={(e) => navigate('/favourites')} style={pathname === '/favourites' ? {fontWeight: 700, color: 'black' , width: 200, textDecoration: 'none'} : { color: 'black', width: 200, textDecoration: 'none'}}>Favourites</Button>}
                     {userRole && <Button variant="text" onClick={(e) => navigate('/addrecipe')} style={pathname === '/addrecipe' ? {fontWeight: 700, color: 'black' , width: 200, textDecoration: 'none'} : { color: 'black', width: 200,textDecoration: 'none'}}>{userRole==='admin' ? 'Add recipe' : 'Request recipe'}</Button>}
                     <Button variant="text" onClick={(e) => navigate('/browse')} style={pathname === '/browse' ? {fontWeight: 700, color: 'black' , width: 200, textDecoration: 'none'} : { color: 'black', width: 200,textDecoration: 'none'}}>Browse</Button>
                     <Button variant="text" onClick={(e) => navigate('/search')} style={pathname === '/search' ? {fontWeight: 700, color: 'black' , width: 350, textDecoration: 'none'} : { color: 'black', width: 350, textDecoration: 'none'}}>Search Your Ingredients</Button>
