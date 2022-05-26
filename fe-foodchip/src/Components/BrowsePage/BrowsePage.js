@@ -34,6 +34,7 @@ const BrowsePage = () => {
     }
 
     if (recipeList === null) return;
+    console.log(recipeList);
     let filteredRecipes = recipeList.filter(recipe => recipe.status === "accepted")
     
     return(

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class new_mig : Migration
+    public partial class added_userId : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -190,8 +190,8 @@ namespace Infrastructure.Migrations
                     RecipeDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RecipeCategoryId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RecipeCoverImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RecipeCoverImage = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -200,7 +200,8 @@ namespace Infrastructure.Migrations
                         name: "FK_Recipes_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Recipes_Categories_RecipeCategoryId",
                         column: x => x.RecipeCategoryId,

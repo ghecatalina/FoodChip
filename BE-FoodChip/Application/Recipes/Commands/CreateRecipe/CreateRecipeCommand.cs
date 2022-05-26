@@ -15,6 +15,7 @@ namespace Application.Recipes.Commands.CreateRecipe
         public int CategoryId { get; set; }
         public Dictionary<string, double> Ingredients { get; set; }
         public string Status { get; set; }
+        public Guid UserId { get; set; }
         public string RecipeCoverImage { get; set; }
     }
 }
