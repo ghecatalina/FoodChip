@@ -21,8 +21,9 @@ namespace Application.Favourites.Queries.GetFavourites
         {
             var recipes = _userManager.Users
                 .Include(u => u.Favourites)
+                .ThenInclude(f => f.FavouriteRecipes)
                 .FirstOrDefault(u => u.Id == request.UserId).Favourites;
-            return await Task.FromResult(recipes);
+            return await Task.FromResult(recipes.FavouriteRecipes);
         }
     }
 }

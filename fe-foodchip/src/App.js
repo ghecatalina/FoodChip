@@ -8,6 +8,7 @@ import AddRecipe from "./Components/AddRecipePage/AddRecipe"
 import RecipePage from "./Components/RecipePage/RecipePage"
 import SearchIngredientsPage from "./Components/SearchIngredientsPage/SearchIngredientsPage"
 import FavouritesPage from "./Components/FavouritesPage/FavouritesPage"
+import RequestsPage from "./Components/RequestsPage/RequestsPage"
 
 const App = () => {
     return (
@@ -21,6 +22,7 @@ const App = () => {
                         <Route exact path="/recipe/:id" element={<RecipePage />} />
                         <Route exact path="/search" element={<SearchIngredientsPage />} />
                         <Route exact path="/favourites" element={<FavouritesPage />} />
+                        <Route exact path="/requests" element={<RequestsPage />} />
                     </Routes>
                 </BrowserRouter>
 

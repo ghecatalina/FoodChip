@@ -7,7 +7,8 @@ import { Box } from "@mui/system";
 
 const AddRecipe = () => {
     const userRole = localStorage.getItem('role');
-    const [formData, setFormData] = useState({name: '', description: '', status: userRole === 'regular' ? 'pending' : 'accepted', categoryId: 0, ingredients: {}, coverImage: ''});
+    const userId = localStorage.getItem('id');
+    const [formData, setFormData] = useState({name: '', description: '', status: userRole === 'regular' ? 'pending' : 'accepted', userId: userId, categoryId: 0, ingredients: {}, coverImage: ''});
     const [categories, setCategories] = useState(null);
     const [ingredients, setIngredients] = useState(null);
     const [ingredientsQuantity, setIngredientsQuantity] = useState({name: '', quantity: 0});

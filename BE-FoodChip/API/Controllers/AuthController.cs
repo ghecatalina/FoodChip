@@ -52,8 +52,8 @@ namespace API.Controllers
             var userCreateResult = await _userManager.CreateAsync(user, userRegister.RegularUserPassword);
             if (userCreateResult.Succeeded)
             {
-                var role = await _userManager.AddToRoleAsync(user, "regular");
-                if (role.Succeeded)
+                //var role = await _userManager.AddToRoleAsync(user, "regular");
+                //if (role.Succeeded)
                     return Created(string.Empty, string.Empty);
             }
             return Problem(userCreateResult.Errors.First().Description, null, 500);

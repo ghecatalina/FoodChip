@@ -46,9 +46,11 @@ namespace Infrastructure.Repositories
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
 
-        public Task Update(Recipe recipe)
+        public void Update(Recipe recipe)
         {
-            throw new NotImplementedException();
+            _context.Recipes.Attach(recipe);
+            _context.Entry(recipe).State = EntityState.Modified;
+            _context.SaveChanges();
         }
     }
 }

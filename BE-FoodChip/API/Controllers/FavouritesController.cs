@@ -2,6 +2,7 @@
 using Application.Favourites.Commands.AddRecipe;
 using Application.Favourites.Commands.RemoveRecipe;
 using Application.Favourites.Queries.GetFavourites;
+using Application.Recipes.Queries.IsFavourite;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -31,18 +32,30 @@ namespace API.Controllers
         }
 
         [HttpPut]
+        [Route("add")]
         public async Task<IActionResult> AddToFavourites([FromBody] FavouritesDto favourites)
         {
             var command = new AddRecipeToFavouritesCommand() { RecipeId = favourites.RecipeId, UserId = favourites.UserId };
             var result = await _mediator.Send(command);
-            return Ok(result);
+            var mappedResult = _mapper.Map<UserNameDto>(result);
+            return Ok(mappedResult);
         }
 
-        [HttpDelete]
+        [HttpPut]
+        [Route("delete")]
         public async Task<IActionResult> RemoveFromFavourites([FromBody] FavouritesDto favourites)
         {
             var command = new RemoveRecipeFromFavouritesCommand() { UserId=favourites.UserId, RecipeId = favourites.RecipeId };
             var result = await _mediator.Send(command);
+            var mappedResult = _mapper.Map<UserNameDto>(result);
+            return Ok(mappedResult);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> IsFavourite([FromBody] FavouritesDto favourites)
+        {
+            var query = new IsFavouriteQuery() { RecipeId=favourites.RecipeId, UserId = favourites.UserId };
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
         

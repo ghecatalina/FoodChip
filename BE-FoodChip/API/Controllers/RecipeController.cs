@@ -6,6 +6,7 @@ using Application.Recipes.Queries.GetAllRecipes;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Application.Recipes.Commands.UpdateRecipe;
 
 namespace API.Controllers
 {
@@ -34,6 +35,7 @@ namespace API.Controllers
                 Description = recipe.Description,
                 CategoryId = recipe.CategoryId,
                 Status = recipe.Status,
+                UserId = recipe.UserId,
                 Ingredients = recipe.Ingredients,
                 RecipeCoverImage = recipe.CoverImage,
             });
@@ -72,6 +74,15 @@ namespace API.Controllers
             var query = new GetAllRecipesQuery();
             var result = await _mediator.Send(query);
             var mappedResult = _mapper.Map<IEnumerable<RecipeGetDto>>(result);
+            return Ok(mappedResult);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateRecipe([FromBody] UpdateRecipeDto updateRecipe)
+        {
+            var command = new UpdateRecipeStatusCommand() { RecipeId = updateRecipe.RecipeId, Status = updateRecipe.Status };
+            var result = await _mediator.Send(command);
+            var mappedResult = _mapper.Map<RecipeGetDto>(result);
             return Ok(mappedResult);
         }
     }

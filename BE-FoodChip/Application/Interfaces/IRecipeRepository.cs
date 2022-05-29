@@ -12,7 +12,7 @@ namespace Application.Interfaces
         Task<IEnumerable<Recipe>> GetAll();
         Task<Recipe> GetById(int id);
         Task Add(Recipe recipe);
-        Task Update(Recipe recipe);
+        void Update(Recipe recipe);
         Task Delete(int id);
     }
 }
