@@ -22,7 +22,7 @@ const FavouritesPage = () => {
     return(
         <>
         <NavBar />
-        {favourites.length && 
+        {favourites.length !== 0 && 
         <Grid container justifyContent="flex-start" spacing={3} style={{paddingLeft: '40px', paddingRight: '40px', paddingTop: '30px'}}>
             {favourites.map((recipe) =>{
                 return(

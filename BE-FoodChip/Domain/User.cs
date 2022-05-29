@@ -9,6 +9,6 @@ namespace Domain
 {
     public class User : IdentityUser<Guid>
     {
-        public List<Recipe> Favourites { get; set; }
+        public Favourites Favourites { get; set; } = new Favourites() { FavouriteRecipes = new List<Recipe>() };
     }
 }

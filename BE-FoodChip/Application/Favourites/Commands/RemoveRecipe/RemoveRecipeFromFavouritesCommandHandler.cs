@@ -24,11 +24,12 @@ namespace Application.Favourites.Commands.RemoveRecipe
         {
             var user = _userManager.Users
                 .Include(u => u.Favourites)
+                .ThenInclude(f => f.FavouriteRecipes)
                 .FirstOrDefault(u => u.Id == request.UserId);
             var recipe = await _recipeRepository.GetById(request.RecipeId);
             if (recipe != null && user != null)
             {
-                user.Favourites.Remove(recipe);
+                user.Favourites.FavouriteRecipes.Remove(recipe);
                 await _userManager.UpdateAsync(user);
             }
             return user;

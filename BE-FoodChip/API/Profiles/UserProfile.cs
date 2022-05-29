@@ -13,6 +13,10 @@ namespace API.Profiles
                 .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.RegularUserEmail))
                 .ReverseMap();
 
+            CreateMap<UserNameDto, User>()
+                .ForMember(p => p.Email, opt => opt.MapFrom(s => s.Email))
+                .ReverseMap();
+
         }
     }
 }

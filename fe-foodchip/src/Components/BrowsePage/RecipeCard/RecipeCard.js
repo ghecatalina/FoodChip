@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -11,15 +11,34 @@ import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import './RecipeCard.css';
 import api from "../../../Services/api";
+import { grey, red } from "@mui/material/colors";
 
 const RecipeCard = ({recipe}) => {
+    const userId = localStorage.getItem('id');
     const userRole = localStorage.getItem('role'); 
     const pathname = window.location.pathname;
     const navigate = useNavigate();
+    const [isFavourite, setIsFavourite] = useState(null);
+    const [formData, setFormData] = useState({userId: userId, recipeId: Number(recipe.id)});
 
     const handleClick = () => {
         navigate(`/recipe/${recipe.id}`);
     }
+
+    useEffect(() => {
+        if (pathname !== '/favourites'){
+            api.post('Favourites', formData)
+            .then(response => {
+                setIsFavourite(response.data);
+                console.log(isFavourite);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }else{
+            setIsFavourite(true);
+        }
+    }, [isFavourite]);
 
     const handleAcceptRecipe = () => {
         const formData = {
@@ -33,6 +52,38 @@ const RecipeCard = ({recipe}) => {
         .catch(err => {
             console.log(err);
         })
+    }          
+
+    const removeFromFavourite = () => {
+        api.put('Favourites/delete', formData)
+            .then(response => {
+                console.log(response.data);
+                setIsFavourite(false);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    const addToFavourite = () => {
+        api.put('Favourites/add', formData)
+            .then(response => {
+                console.log(response.data);
+                setIsFavourite(true);
+                console.log('is not');
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        //console.log(formData);
+    }
+
+    const handleFavourite = () => {
+        if (isFavourite){
+            removeFromFavourite();
+        }else{
+            addToFavourite();
+        }
     }
 
     const handleDeclineRecipe = () => {
@@ -65,8 +116,8 @@ const RecipeCard = ({recipe}) => {
             <CardActions disableSpacing>
                 <Grid container>
                 <Grid item xs={12}>
-                <IconButton aria-label="add to favorites" className="favIcon">
-                <FavoriteIcon />
+                <IconButton aria-label="add to favorites" className="favIcon" onClick={handleFavourite}>
+                <FavoriteIcon sx={isFavourite && {color: 'red'}}/>
                 </IconButton>
                 </Grid>
                 <Grid item xs={12}>
@@ -80,7 +131,7 @@ const RecipeCard = ({recipe}) => {
                 </IconButton>
                 </>
                 }
-                {userRole === 'regular' && 
+                {userRole === 'regular' && pathname === '/requests' &&
                 <Typography variant="body2">status: {recipe.status}</Typography>
                 }
                 </Grid>

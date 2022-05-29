@@ -30,7 +30,7 @@ export default function Register() {
         }
         
         e.preventDefault();
-        dispatch(register(userInfo));
+        dispatch(register(userInfo, navigate));
     }
 
     const goToSignIn = () => {

@@ -16,5 +16,6 @@ namespace Domain
         public string Status { get; set; }
         public Guid UserId { get; set; }
         public string RecipeCoverImage { get; set; }
+        public ICollection<Favourites> Favourites { get; set; } = new List<Favourites>();
     }
 }

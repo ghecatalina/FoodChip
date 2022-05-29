@@ -24,11 +24,12 @@ namespace Application.Favourites.Commands.AddRecipe
         {
             var user = _userManager.Users
                 .Include(u => u.Favourites)
+                .ThenInclude(f => f.FavouriteRecipes)
                 .FirstOrDefault(u => u.Id == request.UserId);
             var recipe = await _recipeRepository.GetById(request.RecipeId);
             if (recipe != null && user != null)
             {
-                user.Favourites.Add(recipe);
+                user.Favourites.FavouriteRecipes.Add(recipe);
                 await _userManager.UpdateAsync(user);
             }
             return user;

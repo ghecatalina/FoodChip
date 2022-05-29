@@ -8,11 +8,14 @@ import './BrowsePage.css';
 const BrowsePage = () => {
     const [recipeList, setRecipeList] = useState([]);
     const [categories, setCategories] = useState(null);
+    const [categoryType, setCategoryType] = useState('');
+    const [filteredRecipes, setFilteredRecipes] = useState([]);
 
     useEffect(() => {
         api.get('Recipe')
         .then(response => {
             setRecipeList(response.data);
+            setCategoryType('all');
         })
         .catch(function (error) {
             console.log(error);
@@ -23,32 +26,42 @@ const BrowsePage = () => {
         api.get('Category')
         .then(response => {
             setCategories(response.data);
+            setCategoryType('all');
         })
         .catch(function (error) {
             console.log(error);
         })
     }, []);
 
+    useEffect(() => {
+        if (categoryType === 'all'){
+            setFilteredRecipes(recipeList.filter(recipe => recipe.status === "accepted"));
+            console.log(filteredRecipes);
+        }else {
+            setFilteredRecipes(recipeList.filter(recipe => recipe.status === "accepted" && recipe.category === categoryType));
+        }
+    }, [recipeList, categoryType])
+
     const addToFavourites = () => {
         
     }
 
-    if (recipeList === null) return;
-    console.log(recipeList);
-    let filteredRecipes = recipeList.filter(recipe => recipe.status === "accepted")
+    //if (recipeList === null) return;
+    //console.log(recipeList);
+    //let filteredRecipes = recipeList.filter(recipe => recipe.status === "accepted")
     
     return(
         <>
         <NavBar list/>
         <div className="menu">
-        <Grid container>
-            <Grid item container>
-                <ButtonGroup orientation="vertical" style={{background: '#FEA150'}}>
+        <Grid container spacing={3}>
+            <Grid item container xs={6}>
+                <ButtonGroup orientation="vertical" >
                     {
                         !categories ? <CircularProgress /> :
                         categories.map((category) => {
                             return (
-                                <Button style={{color: 'white' }} variant="text">{category.name}</Button>
+                                <Button key={category.id} style={categoryType === category.name ? {color: 'white', background: '#ba9473', width: '300px' } : {color: 'white', background: '#FEA150', width: '300px'}} variant="text" onClick={(e) => setCategoryType(category.name)}>{category.name}</Button>
                             )
                         })
                     }
@@ -58,7 +71,7 @@ const BrowsePage = () => {
         </div>
         <div className="recipe">
         {!filteredRecipes.length ? <CircularProgress/>:
-            <Grid container spacing={3} justifyContent="flex-start" style={{paddingLeft: '70px', paddingTop: '20px', paddingBottom: '10px'}}>
+            <Grid item container xs={6} spacing={3} justifyContent="flex-start" style={{paddingLeft: '350px', paddingTop: '20px', paddingBottom: '10px'}}>
                 {filteredRecipes.map( (recipe) => {
                     return (
                         <Grid item maxWidth="250px" key={recipe.id}>
