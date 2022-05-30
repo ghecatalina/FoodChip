@@ -101,7 +101,7 @@ const RecipeCard = ({recipe}) => {
     }
 
     return(
-        <Card>
+        <Card onClick={handleClick}>
             <CardMedia
                 component="img"
                 height="194"

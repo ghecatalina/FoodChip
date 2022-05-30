@@ -42,10 +42,6 @@ const BrowsePage = () => {
         }
     }, [recipeList, categoryType])
 
-    const addToFavourites = () => {
-        
-    }
-
     //if (recipeList === null) return;
     //console.log(recipeList);
     //let filteredRecipes = recipeList.filter(recipe => recipe.status === "accepted")
@@ -61,7 +57,7 @@ const BrowsePage = () => {
                         !categories ? <CircularProgress /> :
                         categories.map((category) => {
                             return (
-                                <Button key={category.id} style={categoryType === category.name ? {color: 'white', background: '#ba9473', width: '300px' } : {color: 'white', background: '#FEA150', width: '300px'}} variant="text" onClick={(e) => setCategoryType(category.name)}>{category.name}</Button>
+                                <Button key={category.id} style={categoryType === category.name ? {color: 'white', background: '#ba9473', width: '200px' } : {color: 'white', background: '#FEA150', width: '200px'}} variant="text" onClick={(e) => setCategoryType(category.name)}>{category.name}</Button>
                             )
                         })
                     }
@@ -71,10 +67,10 @@ const BrowsePage = () => {
         </div>
         <div className="recipe">
         {!filteredRecipes.length ? <CircularProgress/>:
-            <Grid item container xs={6} spacing={3} justifyContent="flex-start" style={{paddingLeft: '350px', paddingTop: '20px', paddingBottom: '10px'}}>
+            <Grid item container spacing={3} justifyContent="flex-start" style={{paddingLeft: '150px', paddingTop: '20px', paddingBottom: '10px'}}>
                 {filteredRecipes.map( (recipe) => {
                     return (
-                        <Grid item maxWidth="250px" key={recipe.id}>
+                        <Grid item width="240px" key={recipe.id}>
                             <RecipeCard recipe={recipe}></RecipeCard>
                         </Grid>
                     )
