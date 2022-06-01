@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { CircularProgress, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import api from "../../Services/api";
 import RecipeCard from "../BrowsePage/RecipeCard/RecipeCard";
@@ -8,11 +8,13 @@ const userId = localStorage.getItem('id');
 
 const FavouritesPage = () => {
     const [favourites, setFavourites] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         api.get(`Favourites/${userId}`)
         .then(response => {
             setFavourites(response.data);
+            setLoading(false);
         })
         .catch(err => {
             console.log(err);
@@ -22,7 +24,12 @@ const FavouritesPage = () => {
     return(
         <>
         <NavBar />
-        {favourites.length !== 0 && 
+        {loading && 
+            <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center" marginTop={10}>
+            <CircularProgress /> 
+            </Grid>
+        }
+        {!loading &&
         <Grid container justifyContent="flex-start" spacing={3} style={{paddingLeft: '40px', paddingRight: '40px', paddingTop: '30px'}}>
             {favourites.map((recipe) =>{
                 return(

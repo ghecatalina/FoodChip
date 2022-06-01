@@ -1,9 +1,9 @@
 import { Button, ButtonGroup, CircularProgress, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import api from "../../Services/api";
 import NavBar from "../NavBar/NavBar";
 import RecipeCard from "../BrowsePage/RecipeCard/RecipeCard"
 import './BrowsePage.css';
+import { api } from "../../api";
 
 const BrowsePage = () => {
     const [recipeList, setRecipeList] = useState([]);
@@ -12,26 +12,32 @@ const BrowsePage = () => {
     const [filteredRecipes, setFilteredRecipes] = useState([]);
 
     useEffect(() => {
-        api.get('Recipe')
+        const getRecipes = async () => {
+        await api.get('Recipe')
         .then(response => {
             setRecipeList(response.data);
             setCategoryType('all');
         })
         .catch(function (error) {
             console.log(error);
-        })
+        });
+        }
+        getRecipes();
     }, []);
 
     useEffect(() => {
-        api.get('Category')
-        .then(response => {
-            setCategories(response.data);
-            setCategoryType('all');
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
-    }, []);
+        const getCategories = async () => {
+            await api.get('Category')
+            .then(response => {
+                setCategories(response.data);
+                setCategoryType('all');
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+            }
+            getCategories();
+    }, [])
 
     useEffect(() => {
         if (categoryType === 'all'){
@@ -48,7 +54,7 @@ const BrowsePage = () => {
     
     return(
         <>
-        <NavBar list/>
+        <NavBar />
         <div className="menu">
         <Grid container spacing={3}>
             <Grid item container xs={6}>
@@ -66,7 +72,10 @@ const BrowsePage = () => {
         </Grid>
         </div>
         <div className="recipe">
-        {!filteredRecipes.length ? <CircularProgress/>:
+        {!filteredRecipes.length ? 
+        <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center" marginTop={10}>
+        <CircularProgress/>
+        </Grid>:
             <Grid item container spacing={3} justifyContent="flex-start" style={{paddingLeft: '150px', paddingTop: '20px', paddingBottom: '10px'}}>
                 {filteredRecipes.map( (recipe) => {
                     return (

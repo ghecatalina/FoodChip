@@ -26,9 +26,6 @@ namespace Infrastructure.Repositories
         public async Task<IEnumerable<Category>> GetAll()
         {
             return await _context.Categories
-                .Include(c => c.Recipes)
-                .ThenInclude(c => c.Ingredients)
-                .ThenInclude(c => c.Ingredient)
                 .ToListAsync();
         }
 

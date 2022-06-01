@@ -28,13 +28,19 @@ namespace Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Recipe>> GetAll()
+        public async Task<List<Recipe>> GetAll()
+        {
+            return await _context.Recipes
+                .Include(r => r.RecipeCategory)
+                .AsNoTracking().ToListAsync();
+        }
+
+        public async Task<IEnumerable<Recipe>> GetAllSearch()
         {
             return await _context.Recipes
                 .Include(r => r.Ingredients)
                 .ThenInclude(r => r.Ingredient)
-                .Include(r => r.RecipeCategory)
-                .ToListAsync();
+                .Include(r => r.RecipeCategory).ToListAsync();
         }
 
         public async Task<Recipe> GetById(int id)

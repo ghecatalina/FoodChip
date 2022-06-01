@@ -60,9 +60,6 @@ const SignIn = () => {
                                 <TextField name="password" type="password" label="Password" fullWidth onChange={handleChange}/>
                             </Grid>
                             <Grid item xs={12} display="flex" justifyContent="flex-end">
-                                <Button variant="text" size="small">Forgot password?</Button>
-                            </Grid>
-                            <Grid item xs={12} display="flex" justifyContent="flex-end">
                                 <Button variant="text" size="small" onClick={goToSignUp}>Don't have an account? Register</Button>
                             </Grid>
                             <Grid item>

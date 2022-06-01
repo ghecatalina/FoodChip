@@ -4,6 +4,7 @@ import NavBar from "../NavBar/NavBar";
 import FileBase from 'react-file-base64';
 import api from "../../Services/api";
 import { Box } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 
 const AddRecipe = () => {
     const userRole = localStorage.getItem('role');
@@ -12,26 +13,33 @@ const AddRecipe = () => {
     const [categories, setCategories] = useState(null);
     const [ingredients, setIngredients] = useState(null);
     const [ingredientsQuantity, setIngredientsQuantity] = useState({name: '', quantity: 0});
+    const navigate = useNavigate();
     const quanInput = React.useRef(null);
 
     useEffect(() => {
-        api.get('Category')
+        const getData = async () => {
+        await api.get('Category')
         .then(response => {
             setCategories(response.data);
         })
         .catch(function (error) {
             console.log(error);
         })
+        }
+        getData();
     }, []);
 
     useEffect(() => {
-        api.get('Ingredient')
+        const getData = async () => {
+        await api.get('Ingredient')
         .then(response => {
             setIngredients(response.data);
         })
         .catch(function (error) {
             console.log(error);
         })
+        }
+        getData();
     }, []);
 
     const handleAddIngredientQuantity = () => {
@@ -45,7 +53,8 @@ const AddRecipe = () => {
     const handleSubmit = () => {
         api.post('Recipe', formData)
         .then(response => {
-            console.log(response.data)
+            console.log(response.data);
+            navigate(`/recipe/${response.data.id}`);
         })
         .catch(error => {
             console.log(error);

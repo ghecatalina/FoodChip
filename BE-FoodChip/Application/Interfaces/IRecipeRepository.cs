@@ -9,7 +9,8 @@ namespace Application.Interfaces
 {
     public interface IRecipeRepository
     {
-        Task<IEnumerable<Recipe>> GetAll();
+        Task<List<Recipe>> GetAll();
+        Task<IEnumerable<Recipe>> GetAllSearch();
         Task<Recipe> GetById(int id);
         Task Add(Recipe recipe);
         void Update(Recipe recipe);

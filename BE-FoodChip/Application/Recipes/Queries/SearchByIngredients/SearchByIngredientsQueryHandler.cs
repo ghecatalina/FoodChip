@@ -18,7 +18,7 @@ namespace Application.Recipes.Queries.SearchByIngredients
         }
         public async Task<List<Recipe>> Handle(SearchByIngredientsQuery request, CancellationToken cancellationToken)
         {
-            var recipes = await _repository.GetAll();
+            var recipes = await _repository.GetAllSearch();
             if (request.Category.ToLower() != "all")
                 recipes = recipes.Where(r => r.RecipeCategory.CategoryName == request.Category.ToLower());
 

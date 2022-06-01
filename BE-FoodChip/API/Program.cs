@@ -20,10 +20,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddMediatR(typeof(AssemblyMarker));
+builder.Services.AddTransient<IRecipeRepository, RecipeRepository>();
 builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
 builder.Services.AddScoped<IIngredientQuantityRepository, IngredientQuantityRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
 
 //db confituration
 var connectionString = builder.Configuration.GetConnectionString("Default");

@@ -18,7 +18,7 @@ const RecipeCard = ({recipe}) => {
     const userRole = localStorage.getItem('role'); 
     const pathname = window.location.pathname;
     const navigate = useNavigate();
-    const [isFavourite, setIsFavourite] = useState(null);
+    const [isFavourite, setIsFavourite] = useState(false);
     const [formData, setFormData] = useState({userId: userId, recipeId: Number(recipe.id)});
 
     const handleClick = () => {
@@ -26,6 +26,9 @@ const RecipeCard = ({recipe}) => {
     }
 
     useEffect(() => {
+        const getData = async () => {
+        if (!userId)
+            return;
         if (pathname !== '/favourites'){
             api.post('Favourites', formData)
             .then(response => {
@@ -38,6 +41,8 @@ const RecipeCard = ({recipe}) => {
         }else{
             setIsFavourite(true);
         }
+        }
+        getData();
     }, [isFavourite]);
 
     const handleAcceptRecipe = () => {
@@ -48,6 +53,7 @@ const RecipeCard = ({recipe}) => {
         api.put('Recipe', formData)
         .then(response => {
             console.log(response.data);
+            window.location.reload();
         })
         .catch(err => {
             console.log(err);
@@ -59,6 +65,9 @@ const RecipeCard = ({recipe}) => {
             .then(response => {
                 console.log(response.data);
                 setIsFavourite(false);
+                if (pathname === '/favourites'){
+                    window.location.reload();
+                }
             })
             .catch(err => {
                 console.log(err);
@@ -94,6 +103,7 @@ const RecipeCard = ({recipe}) => {
         api.put('Recipe', formData)
         .then(response => {
             console.log(response.data);
+            window.location.reload();
         })
         .catch(err => {
             console.log(err);
@@ -101,7 +111,7 @@ const RecipeCard = ({recipe}) => {
     }
 
     return(
-        <Card onClick={handleClick}>
+        <Card>
             <CardMedia
                 component="img"
                 height="194"
@@ -109,17 +119,19 @@ const RecipeCard = ({recipe}) => {
                 alt="Photo"
             />
             <CardContent>
-                <Typography className="name">
+                <Typography className="name" onClick={handleClick}>
                     {recipe.name}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
                 <Grid container>
+                {userId &&
                 <Grid item xs={12}>
                 <IconButton aria-label="add to favorites" className="favIcon" onClick={handleFavourite}>
                 <FavoriteIcon sx={isFavourite && {color: 'red'}}/>
                 </IconButton>
                 </Grid>
+                }
                 <Grid item xs={12}>
                 {userRole === 'admin' && pathname === '/requests' && 
                 <>

@@ -1,4 +1,4 @@
-import { Autocomplete, Button, CircularProgress, Grid, TextField } from "@mui/material";
+import { Autocomplete, Button, CircularProgress, Container, Grid, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { api } from "../../api";
 import RecipeCard from "../BrowsePage/RecipeCard/RecipeCard";
@@ -8,10 +8,12 @@ const SearchIngredientsPage = () => {
     const [ingredients, setIngredients] = useState([]);
     const [searchIngredients, setSearchIngredients] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [category, setCategory] = useState(null);
+    const [category, setCategory] = useState('all');
     const [recipes, setRecipes] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        const getIngredients = async () => {
         api.get('Ingredient')
         .then(response => {
             setIngredients(response.data);
@@ -19,44 +21,52 @@ const SearchIngredientsPage = () => {
         .catch(error => {
             console.log(error);
         })
-
+        }
+        const getCategories = async () => {
         api.get('Category')
         .then(response => {
             //setCategories(response.data);
             //setCategories(categories.concat({id: 0, name: 'all', recipes: []}));
             var list = [];
             //list = (response.data).concat({id: 0, name: 'all', recipes: []});
-            list = [{id: 0, name: 'all', recipes: []}, ...response.data];
+            list = [{id: 0, name: 'all'}, ...response.data];
             setCategories(list);
             console.log(categories);
         })
         .catch(error => {
             console.log(error)
         })
+        }
+        getIngredients();
+        getCategories();
     }, [])
 
     const handleSearch = () => {
         const list = [];
         searchIngredients.forEach(ingr => list.push(ingr.ingredientName));
-
+        setLoading(true);
         const searchData = {
             category: category,
             ingredients: list
         }
         
+        const search = async () => {
         api.post('Recipe/search', searchData)
         .then(response => {
-            setRecipes(response.data);
+            setRecipes(response.data.filter(recipe => recipe.status === 'accepted'));
+            setLoading(false);
         })
         .catch(err => {
             console.log(err);
         })
+        }
+        search();
 
-        //console.log(recipes);
+        console.log(searchData);
     }
 
     return(
-        !ingredients.length && !categories.length ? <CircularProgress /> :
+        <>
         <>
         <NavBar />
         <Grid container justifyContent="flex-start" style={{paddingLeft: '40px', paddingRight: '40px', paddingTop: '30px'}}>
@@ -84,7 +94,7 @@ const SearchIngredientsPage = () => {
             options={categories}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             getOptionLabel={(option) => option.name}
-            defaultValue={categories[0]}
+            defaultValue={{id: 0, name: 'all'}}
             onChange={(event, newValue) => {setCategory(newValue.name)}}
             renderInput={(params) => (
             <TextField  
@@ -100,16 +110,24 @@ const SearchIngredientsPage = () => {
                 <Button variant="contained" onClick={handleSearch} style={{background: '#FEA150'}}>Search</Button>
             </Grid>
             </Grid>
-            <Grid item container xs={12} columnSpacing={6} style={{paddingTop: '30px'}}>
+            {loading && 
+            <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center" marginTop={10}>
+            <CircularProgress /> 
+            </Grid>
+            }
+            {!loading && 
+            <Grid item container xs={12} spacing={6} style={{paddingTop: '30px', paddingBottom: '30px'}}>
                     {recipes.map( (recipe) => {
                         return (
                             <Grid item xs={3}>
-                                <RecipeCard recipe={recipe} />
+                                <RecipeCard key={recipe.id} recipe={recipe} />
                             </Grid>
                         )
                     })}
             </Grid>
+            }
         </Grid>
+        </>
         </>
     );
 }

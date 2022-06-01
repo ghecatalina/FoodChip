@@ -73,7 +73,7 @@ namespace API.Controllers
         {
             var query = new GetAllRecipesQuery();
             var result = await _mediator.Send(query);
-            var mappedResult = _mapper.Map<IEnumerable<RecipeGetDto>>(result);
+            var mappedResult = _mapper.Map<IEnumerable<RecipeDto>>(result);
             return Ok(mappedResult);
         }
 
